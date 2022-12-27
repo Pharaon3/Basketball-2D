@@ -10,7 +10,7 @@ var teamNames = new Array()
 const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b)
 function getJsonData() {
   fetch(
-    'https://lmt.fn.sportradar.com/demolmt/en/Etc:UTC/gismo/match_timelinedelta/35445557',
+    'https://lmt.fn.sportradar.com/demolmt/en/Etc:UTC/gismo/match_timelinedelta/35118745',
   )
     .then((res) => {
       return res.json()
@@ -71,7 +71,7 @@ function getJsonData() {
         }
         if (event['type'] == 'goal') {
           if (event['team'] == 'home') {
-            events1 = {X: '95', Y: '50', Z: '60'}
+            events1 = {X: '95', Y: '50', Z: '1'}
             events1['team'] = 'home'
             events1['type'] = 'goal'
             events1['name'] = event['name']
@@ -87,7 +87,7 @@ function getJsonData() {
             newEvents.push(events2)
           } 
           else if (event['team'] == 'away') {
-            events1 = {X: '4', Y: '50', Z: '60'}
+            events1 = {X: '4', Y: '50', Z: '1'}
               events1['team'] = 'away'
               events1['type'] = 'goal'
               events1['name'] = event['name']
@@ -105,7 +105,7 @@ function getJsonData() {
         }
         if (event['type'] == 'attempt_missed') {
           if (event['team'] == 'home') {
-            events1 = {X: '97', Y: '50', Z: '60'}
+            events1 = {X: '97', Y: '50', Z: '3'}
               events1['team'] = 'home'
               events1['type'] = 'attempt_missed'
               events1['name'] = event['name']
@@ -120,7 +120,7 @@ function getJsonData() {
               events2['seconds'] = event['seconds']
               newEvents.push(events2)
           } else if (event['team'] == 'away') {
-            events1 = {X: '3', Y: '50', Z: '60'}
+            events1 = {X: '3', Y: '50', Z: '3'}
               events1['team'] = 'away'
               events1['type'] = 'attempt_missed'
               events1['name'] = event['name']
