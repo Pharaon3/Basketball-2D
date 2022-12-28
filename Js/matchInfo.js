@@ -1,7 +1,7 @@
 var homePlayerColor, awayPlayerColor, homePlayerStripesColor, awayPlayerStripesColor, homePlayerSleeveColor, awayPlayerSleeveColor
 function getMatchJsonData() {
   fetch(
-    'https://lmt.fn.sportradar.com/common/en/Etc:UTC/gismo/match_info/37564405',
+    'https://lmt.fn.sportradar.com/common/en/Etc:UTC/gismo/match_info/37564445',
   )
     .then((res) => {
       return res.json()

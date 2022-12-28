@@ -88,16 +88,26 @@ function countdown() {
           kickBall()
         }
       }
-      if(gameState[currentState]['type'] == 'goal') kickBall()
-      if(gameState[currentState]['name'] == 'goal_') {
-        gt = max(t * t, 1)
-        document.getElementById('ball').setAttribute('y', y_1 - ballRadius + topPosition)
+      if(gameState[currentState]['type'] == 'goal' || gameState[currentState]['type'] == 'attempt_missed') kickBall()
+      if(gameState[currentState]['type'] == 'goal' && gameState[currentState]['seconds'] == gameState[currentState - 1]['seconds'] + 1) {
+        gt = min(4 * t * t, 1)
+        document.getElementById('ball').setAttribute('y', y_1 - ballRadius / 2 + topPosition)
         document.getElementById('ball').setAttribute('opacity', 1 - gt)
-        document.getElementById('ball_shadow').setAttribute('rx', 10 * (1 + gt))
-        document.getElementById('ball_shadow').setAttribute('ry', 10 * (1 + gt))
+        document.getElementById('ball_shadow').setAttribute('rx', 20 * (1 + gt))
+        document.getElementById('ball_shadow').setAttribute('ry', 20 * (1 + gt))
+        document.getElementById('ball_shadow').setAttribute('fill', 'white')
+      }
+      else if(gameState[currentState]['type'] == 'attempt_missed' && gameState[currentState]['seconds'] == gameState[currentState - 1]['seconds'] + 1) {
+        gt = min(4 * t * t, 1)
+        document.getElementById('ball').setAttribute('y', y_1 - ballRadius / 2 + topPosition)
+        document.getElementById('ball').setAttribute('opacity', 1)
+        document.getElementById('ball_shadow').setAttribute('rx', 20 * (1 + gt))
+        document.getElementById('ball_shadow').setAttribute('ry', 20 * (1 + gt))
+        document.getElementById('ball_shadow').setAttribute('fill', 'red')
       }
       else {
         document.getElementById('ball').setAttribute('opacity', 1)
+        document.getElementById('ball_shadow').setAttribute('fill', 'grey')
       }
       showState()
     }
@@ -140,7 +150,7 @@ function bounceBall() {
     .setAttribute('x', x_b + w2 - ballRadius / 2 + topLeft)
   document
     .getElementById('ball')
-    .setAttribute('y',y_b - ballRadius + topPosition - 20 + 20 * (tt - 0.5) * (tt - 0.5) * 4)
+    .setAttribute('y',y_b - ballRadius / 2 + topPosition - 20 + 20 * (tt - 0.5) * (tt - 0.5) * 4)
   document.getElementById('ball').setAttribute('width', ballRadius)
   document.getElementById('ball_shadow').setAttribute('cx', x_1 + w2 + topLeft)
   document.getElementById('ball_shadow').setAttribute('cy', y_1 + topPosition)
@@ -175,7 +185,7 @@ function kickBall() {
     .setAttribute('x', x_b + w2 - ballRadius / 2 + topLeft)
   document
     .getElementById('ball')
-    .setAttribute('y', y_b - ballRadius + topPosition)
+    .setAttribute('y', y_b - ballRadius / 2 + topPosition)
   document.getElementById('ball').setAttribute('width', ballRadius)
   document.getElementById('ball_shadow').setAttribute('cx', x_1 + w2 + topLeft)
   document.getElementById('ball_shadow').setAttribute('cy', y_1 + topPosition)
@@ -403,6 +413,10 @@ function max(a, b) {
   if(a > b) return a;
   return b;
 }
+function min(a, b) {
+  if(a > b) return b;
+  return a;
+}
 function mapX(x11, y11) {
   x_11 = x11
   return x_11
@@ -463,12 +477,7 @@ function displayState() {
   }
   document.getElementById('stateLabels').setAttribute('transform', 'translate(' + statePositionX + ',' + statePositionY + ')');
   if(gameState[currentState]['type'] == 'goal' || gameState[currentState]['type'] == 'attempt_missed'){
-    if(gameState[currentState]['name'] == 'goal_'){
-      action()
-      document.getElementById('Ball_Begin').style.display = 'block'
-      document.getElementById('Ball_Track_Begin').style.display = 'block'
-    }
-    if(gameState[currentState - 1]['name'] == 'goal_'){
+    if(gameState[currentState - 1]['type'] == gameState[currentState]['type'] && gameState[currentState]['uts'] == gameState[currentState - 1]['uts']){
       action()
       document.getElementById('Ball_Begin').style.display = 'block'
       document.getElementById('Ball_Track_Begin').style.display = 'block'
@@ -490,7 +499,7 @@ function action() {
   document.getElementById('state').setAttribute('text-anchor', 'start')
   document.getElementById('teamName').setAttribute('text-anchor', 'start')
   document.getElementById('state').textContent = gameState[currentState]['name']
-  if(gameState[currentState]['points']){
+  if(gameState[currentState]['points'] && gameState[currentState]['type'] == 'attempt_missed'){
     document.getElementById('state').textContent = gameState[currentState]['points'] + 'pt ' + 'missed'
     if(gameState[currentState]['points'] == 1) document.getElementById('state').textContent = 'Free Throw missed'
   } 
@@ -510,6 +519,7 @@ function action() {
   document.getElementById('stateLabels').setAttribute('transform', 'translate(' + statePositionX + ',' + statePositionY + ')');
   document.getElementById('Ball_Begin').style.display = 'none'
   document.getElementById('Ball_Track_Begin').style.display = 'none'
+  document.getElementById('teamName').textContent = teamNames[gameState[currentState]['team']].toUpperCase()
 }
 function goalAnimation() {
   // action()

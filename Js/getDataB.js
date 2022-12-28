@@ -13,7 +13,7 @@ const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b)
 function getJsonData() {
   fetch(
     // './json/Untitled-3.json',
-    'https://lmt.fn.sportradar.com/demolmt/en/Etc:UTC/gismo/match_timelinedelta/37564405',
+    'https://lmt.fn.sportradar.com/demolmt/en/Etc:UTC/gismo/match_timelinedelta/35753415',
   )
     .then((res) => {
       return res.json()
@@ -171,72 +171,78 @@ function getJsonData() {
       var events = data_['events']
       newEvents = new Array()
       events.forEach((event) => {
-        let typeFlag = 1;
+        let typeFlag = 1
         gameType.forEach((type) => {
           if(equals(type, event['type'])) typeFlag = 0;
         })
         if (typeFlag) gameType.push(event['type'])
-        if(event['seconds'] > 0 && timeSet == 0){
+        if (event['seconds'] > 0 && timeSet == 0){
           // time = event['seconds'] * 1000;
           // timeSet = 1;
         }
-        if(event['type'] != 'ballcoordinates') {
-          newEvents.push({name: event['name'], X: event['X'], Y: event['Y'], seconds: event['seconds'], type: event['type'], team: event['team'], points: event['points']})
+        if (event['type'] != 'ballcoordinates') {
+          newEvents.push({X: event['X'], Y: event['Y'], team: event['team'], type: event['type'], name: event['name'], uts: event['uts'], seconds: event['seconds'], points: event['points']})
         }
         if (event['type'] == 'goal') {
           if (event['team'] == 'home') {
-            events1 = {X: '100', Y: '50'}
-            events1['team'] = 'home'
-            events1['type'] = 'goal'
+            events1 = {X: 100, Y: 50}
+            events1['team'] = event['team']
+            events1['type'] = event['type']
             events1['name'] = event['name']
             events1['uts'] = event['uts']
             events1['seconds'] = event['seconds']
+            events1['points'] = event['points']
             newEvents.push(events1)
-            events2 = {X: '100', Y: '50'}
-            events2['team'] = 'home'
-            events2['type'] = 'goal'
-            events2['name'] = 'goal_'
+            events2 = {X: 100, Y: 50}
+            events2['team'] = event['team']
+            events2['type'] = event['type']
+            events2['name'] = event['name']
             events2['uts'] = event['uts']
-            events2['seconds'] = event['seconds']
+            events2['seconds'] = event['seconds'] + 1
+            events2['points'] = event['points']
             newEvents.push(events2)
-            events3 = {X: '100', Y: '50'}
-            events3['team'] = 'home'
-            events3['type'] = 'goal'
+            events3 = {X: 100, Y: 50}
+            events3['team'] = event['team']
+            events3['type'] = event['type']
             events3['name'] = event['name']
             events3['uts'] = event['uts']
-            events3['seconds'] = event['seconds']
+            events3['seconds'] = event['seconds'] + 1
+            events3['points'] = event['points']
             newEvents.push(events3)
           } 
           else if (event['team'] == 'away') {
-            events1 = {X: '0', Y: '50'}
-            events1['team'] = 'away'
-            events1['type'] = 'goal'
+            events1 = {X: 0, Y: 50}
+            events1['team'] = event['team']
+            events1['type'] = event['type']
             events1['name'] = event['name']
             events1['uts'] = event['uts']
             events1['seconds'] = event['seconds']
+            events1['points'] = event['points']
             newEvents.push(events1)
 
-            events2 = {X: '0', Y: '50'}
-            events2['team'] = 'away'
-            events2['type'] = 'goal'
-            events2['name'] = 'goal_'
+            events2 = {X: 0, Y: 50}
+            events2['team'] = event['team']
+            events2['type'] = event['type']
+            events2['name'] = event['name']
             events2['uts'] = event['uts']
-            events2['seconds'] = event['seconds']
+            events2['seconds'] = event['seconds'] + 1
+            events2['points'] = event['points']
             newEvents.push(events2)
 
-            events3 = {X: '0', Y: '50'}
-            events3['team'] = 'away'
-            events3['type'] = 'goal'
+            events3 = {X: 0, Y: 50}
+            events3['team'] = event['team']
+            events3['type'] = event['type']
             events3['name'] = event['name']
             events3['uts'] = event['uts']
-            events3['seconds'] = event['seconds']
+            events3['seconds'] = event['seconds'] + 1
+            events3['points'] = event['points']
             newEvents.push(events3)
           } else;
         }
         if (event['type'] == 'attempt_missed') {
           if (event['team'] == 'home') {
-            events1 = {X: '97', Y: '50'}
-            events1['team'] = 'home'
+            events1 = {X: 100, Y: 45}
+            events1['team'] = event['team']
             events1['type'] = event['type']
             events1['name'] = event['name']
             events1['uts'] = event['uts']
@@ -244,26 +250,26 @@ function getJsonData() {
             events1['points'] = event['points']
             newEvents.push(events1)
 
-            events2 = {X: '80', Y: '50'}
-            events2['team'] = 'home'
+            events2 = {X: 100, Y: 45}
+            events2['team'] = event['team']
             events2['type'] = event['type']
             events2['name'] = event['name']
             events2['uts'] = event['uts']
-            events2['seconds'] = event['seconds']
+            events2['seconds'] = event['seconds'] + 1
             events2['points'] = event['points']
             newEvents.push(events2)
 
-            events3 = {X: '80', Y: '50'}
-            events3['team'] = 'home'
+            events3 = {X: 80, Y: 50}
+            events3['team'] = event['team']
             events3['type'] = event['type']
             events3['name'] = event['name']
             events3['uts'] = event['uts']
-            events3['seconds'] = event['seconds']
+            events3['seconds'] = event['seconds'] + 1
             events3['points'] = event['points']
             newEvents.push(events3)
           } else if (event['team'] == 'away') {
-            events1 = {X: '3', Y: '50'}
-            events1['team'] = 'away'
+            events1 = {X: 0, Y: 45}
+            events1['team'] = event['team']
             events1['type'] = event['type']
             events1['name'] = event['name']
             events1['uts'] = event['uts']
@@ -271,42 +277,44 @@ function getJsonData() {
             events1['points'] = event['points']
             newEvents.push(events1)
 
-            events2 = {X: '20', Y: '50'}
-            events2['team'] = 'away'
+            events2 = {X: 0, Y: 45}
+            events2['team'] = event['team']
             events2['type'] = event['type']
             events2['name'] = event['name']
             events2['uts'] = event['uts']
-            events2['seconds'] = event['seconds']
+            events2['seconds'] = event['seconds'] + 1
             events2['points'] = event['points']
             newEvents.push(events2)
 
-            events3 = {X: '20', Y: '50'}
-            events3['team'] = 'away'
+            events3 = {X: 20, Y: 50}
+            events3['team'] = event['team']
             events3['type'] = event['type']
             events3['name'] = event['name']
             events3['uts'] = event['uts']
-            events3['seconds'] = event['seconds']
+            events3['seconds'] = event['seconds'] + 1
             events3['points'] = event['points']
             newEvents.push(events3)
           } else;
         }
         if (event['type'] == 'free_throws_awarded') {
           if (event['team'] == 'home') {
-            events1 = {X: '80', Y: '50'}
-            events1['team'] = 'home'
-            events1['type'] = 'free_throws_awarded'
+            events1 = {X: 75, Y: 50}
+            events1['team'] = event['team']
+            events1['type'] = event['type']
             events1['name'] = event['name']
             events1['uts'] = event['uts']
             events1['seconds'] = event['seconds']
+            events1['points'] = event['points']
             newEvents.push(events1)
 
           } else if (event['team'] == 'away') {
-            events1 = {X: '20', Y: '50'}
-            events1['team'] = 'away'
-            events1['type'] = 'free_throws_awarded'
+            events1 = {X: 25, Y: 50}
+            events1['team'] = event['team']
+            events1['type'] = event['type']
             events1['name'] = event['name']
             events1['uts'] = event['uts']
             events1['seconds'] = event['seconds']
+            events1['points'] = event['points']
             newEvents.push(events1)
           } else;
         }
