@@ -604,6 +604,8 @@ function goalAnimation() {
   // }
 }
 function setCenterFrame(title, content) {
+  document.getElementById('homeStatePolygon').style.fill = 'url(#none)'
+  document.getElementById('awayStatePolygon').style.fill = 'url(#none)'
   document.getElementById('stateLabels').style.display = 'none'
   document.getElementById('center_rect').setAttribute('fill-opacity', 0.5)
   center_text = capitalizeWords(title.split(" ")).join(' ')
@@ -664,6 +666,7 @@ function handleEventData(data) {
     // setTimer = match['timeinfo']['running']
     if(match['p'] == 31) setTimer = false
     if(match['p'] == 32) setTimer = false
+    if(match['p'] == 33) setTimer = false
     if(match['p'] == 0) setTimer = false
 
     var hometeam = teams['home']
@@ -835,6 +838,10 @@ function handleEventData(data) {
     if(match['p'] == 32) {
       setTimer = false
       setCenterFrame('Halftime', homeScore + ':' + awayScore)
+    }
+    if(match['p'] == 33) {
+      setTimer = false
+      setCenterFrame('Break', homeScore + ':' + awayScore)
     }
 
   }
