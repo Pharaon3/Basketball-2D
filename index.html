@@ -51,7 +51,7 @@
       </g>
       <g id="Attack_Begin">
         <polygon id="homeStatePolygon" points="30, 100 450, 100 550, 352 450, 605 30, 605 "
-          style="fill: url(#homePossession);" />
+          style="fill: url(#none);" />
         <polygon id="awayStatePolygon" points="410, 352 510, 100 930, 100 930, 605 510, 605 "
           style="fill: url(#none);" />
       </g>
@@ -456,7 +456,7 @@
           <text id="substitutionInPlayer" fill="#fff" font-size="16" font-family="InriaSans" x="835" y="618"
             fill-opacity="0.9" text-anchor="end"> </text>
         </g>
-        <g id="stateLabels" transform='translate(300,450)' filter="url(#shadow)" style='display: block;'>
+        <g id="stateLabels" transform='translate(300,450)' filter="url(#shadow)" style='display: none;'>
           <rect id='stateRect' x="-150" y="-30" width="150" height="70" rx="35" ry="35" fill-opacity = '0' fill='cyan'/>
           <circle id='jerseyCircle' cx = '-30' cy = '0' r = '30' fill = '#000' fill-opacity='0'/>
           <g id = 'stateJersey' transform = 'translate(-35, 2)'>
@@ -524,6 +524,40 @@
           <text id="teamName" fill="#fff" font-size="24" font-family="InriaSans" x="-65" y="25" fill-opacity="0.9"
             text-anchor="end" font-weight="bold"> Home </text>
         </g>
+        <rect
+          id="center_rect"
+          x="290"
+          y="300"
+          width="380"
+          height="60"
+          style="
+            fill: black;
+            stroke: grey;
+            stroke-width: 0;
+            stroke-opacity: 1;
+          "
+          fill-opacity = '0'
+        />
+        <text
+          id="center_text"
+          fill="#fff"
+          font-size="38"
+          font-family="InriaSans"
+          x="480"
+          y="360"
+          fill-opacity="1"
+          text-anchor="middle"
+        ></text>
+        <text
+          id="bottom_text"
+          fill="#fff"
+          font-size="30"
+          font-family="InriaSans"
+          x="480"
+          y="400"
+          fill-opacity="0.71"
+          text-anchor="middle"
+        ></text>
       </g>
       <g id="Ball_Begin">
         <ellipse id="ball_shadow" cx="480" cy="348" rx="5" ry="5" stroke="none" fill="grey"
