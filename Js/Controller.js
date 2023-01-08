@@ -1,6 +1,7 @@
 var socket;
 
 var currentState = 0
+var setTimer1 = true
 
 var updated_uts1 = 0, updated_uts = 0
 var currentTime, matchStartDate;
@@ -57,6 +58,7 @@ var isGoal
 
 function countdown() {
   var interval = setInterval(function () {
+    changeScreenSize()
 
     const currentDate = new Date;
     updated_uts += timeInterval / 1000
@@ -143,13 +145,20 @@ function countdown() {
       showState()
     }
     // if(setTimer == 1) time -= timeInterval;
+    if(gameState.length && gameState[currentState]['type'] == 'timeout'){
+      setTimer = false
+      setCenterFrame('Time Out', teamNames[gameState[currentState]['team']])
+    }
     time -= timeInterval;
-    if(setTimer) currentTime = time
+    if(setTimer1) currentTime = time
     else currentTime = getDataTime
     let thisSecond = Math.floor(currentTime / 1000);
     var minute = Math.floor(thisSecond / 60);
     var second = thisSecond % 60;
     document.getElementById('time').textContent = max(Math.floor(minute / 10), 0) + '' + max(0, (minute % 10)) + ':' + max(0, Math.floor(second / 10)) + '' + max(0, (second % 10));
+
+      // setTimer = true
+    
   }, timeInterval)
 }
 function load() {
@@ -253,6 +262,7 @@ function kickBall() {
   }
 }
 function drawTrack() {
+  if(!setTimer)return
   x_l = x_1_1 + (x_1_2 - x_1_1) * t
   y_l = y_1_1 + (y_1_2 - y_1_1) * t
   document.getElementById('ballLine1').setAttribute('x1', lineX[0])
@@ -663,7 +673,7 @@ function handleEventData(data) {
     var teams = match['teams']
     periodlength = match['periodlength']
     getDataTime = match['timeinfo']['remaining'] * 1000
-    // setTimer = match['timeinfo']['running']
+    setTimer1 = match['timeinfo']['running']
     if(match['p'] == 31) setTimer = false
     if(match['p'] == 32) setTimer = false
     if(match['p'] == 33) setTimer = false
@@ -1030,3 +1040,62 @@ function handleInfoData(data) {
   document.getElementById('awayBaseColorT').setAttribute('fill', '#'+ awayPlayerColor);
 }
 
+
+function changeScreenSize() {
+  screenHeight = window.innerHeight
+  screenWidth = window.innerWidth
+  document.getElementById('scale').setAttribute('transform', 'scale(1.3)')
+  document.getElementById('svg').setAttribute('width', 960 * 1.3)
+  document.getElementById('svg').setAttribute('height', 632.5 * 1.3)
+  if(screenWidth < 1300 || screenHeight < 900){
+    document.getElementById('scale').setAttribute('transform', 'scale(1.2)')
+    document.getElementById('svg').setAttribute('width', 960 * 1.2)
+    document.getElementById('svg').setAttribute('height', 632.5 * 1.2)
+  } 
+  if(screenWidth < 1170 || screenHeight < 800){
+    document.getElementById('scale').setAttribute('transform', 'scale(1.1)')
+    document.getElementById('svg').setAttribute('width', 960 * 1.1)
+    document.getElementById('svg').setAttribute('height', 632.5 * 1.1)
+  } 
+  if(screenWidth < 1080 || screenHeight < 720){
+    document.getElementById('scale').setAttribute('transform', 'scale(1)')
+    document.getElementById('svg').setAttribute('width', 960 * 1)
+    document.getElementById('svg').setAttribute('height', 632.5 * 1)
+  } 
+  if(screenWidth < 980 || screenHeight < 645){
+    document.getElementById('scale').setAttribute('transform', 'scale(0.8)')
+    document.getElementById('svg').setAttribute('width', 960 * 0.8)
+    document.getElementById('svg').setAttribute('height', 632.5 * 0.8)
+  } 
+  if(screenWidth < 790 || screenHeight < 530){
+    document.getElementById('scale').setAttribute('transform', 'scale(0.6)')
+    document.getElementById('svg').setAttribute('width', 960 * 0.6)
+    document.getElementById('svg').setAttribute('height', 632.5 * 0.6)
+  } 
+  if(screenWidth < 600 || screenHeight < 400){
+    document.getElementById('scale').setAttribute('transform', 'scale(0.5)')
+    document.getElementById('svg').setAttribute('width', 960 * 0.5)
+    document.getElementById('svg').setAttribute('height', 632.5 * 0.5)
+  } 
+  if(screenWidth < 500 || screenHeight < 337){
+    document.getElementById('scale').setAttribute('transform', 'scale(0.4)')
+    document.getElementById('svg').setAttribute('width', 960 * 0.4)
+    document.getElementById('svg').setAttribute('height', 632.5 * 0.4)
+  } 
+  if(screenWidth < 400 || screenHeight < 275){
+    document.getElementById('scale').setAttribute('transform', 'scale(0.3)')
+    document.getElementById('svg').setAttribute('width', 960 * 0.3)
+    document.getElementById('svg').setAttribute('height', 632.5 * 0.3)
+  } 
+  if(screenWidth < 300 || screenHeight < 200){
+    document.getElementById('scale').setAttribute('transform', 'scale(0.2)')
+    document.getElementById('svg').setAttribute('width', 960 * 0.2)
+    document.getElementById('svg').setAttribute('height', 632.5 * 0.2)
+  } 
+  if(screenWidth < 200 || screenHeight < 150){
+    document.getElementById('scale').setAttribute('transform', 'scale(0.1)')
+    document.getElementById('svg').setAttribute('width', 960 * 0.1)
+    document.getElementById('svg').setAttribute('height', 632.5 * 0.1)
+  } 
+
+}
