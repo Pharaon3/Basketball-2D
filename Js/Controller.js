@@ -318,7 +318,7 @@ function stepInitialize() {
   x1 = x2
   y1 = y2
   if (currentState < gameState.length - 1) {
-    currentState++
+    currentState = max(currentState + 1, gameState.length - 10)
     time = getDataTime
     if(gameState[currentState]['seconds'] > 0){
       // time = gameState[currentState]['seconds'] * 1000
