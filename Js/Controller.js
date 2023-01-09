@@ -1044,58 +1044,10 @@ function handleInfoData(data) {
 function changeScreenSize() {
   screenHeight = window.innerHeight
   screenWidth = window.innerWidth
-  document.getElementById('scale').setAttribute('transform', 'scale(1.3)')
-  document.getElementById('svg').setAttribute('width', 960 * 1.3)
-  document.getElementById('svg').setAttribute('height', 632.5 * 1.3)
-  if(screenWidth < 1300 || screenHeight < 900){
-    document.getElementById('scale').setAttribute('transform', 'scale(1.2)')
-    document.getElementById('svg').setAttribute('width', 960 * 1.2)
-    document.getElementById('svg').setAttribute('height', 632.5 * 1.2)
-  } 
-  if(screenWidth < 1170 || screenHeight < 800){
-    document.getElementById('scale').setAttribute('transform', 'scale(1.1)')
-    document.getElementById('svg').setAttribute('width', 960 * 1.1)
-    document.getElementById('svg').setAttribute('height', 632.5 * 1.1)
-  } 
-  if(screenWidth < 1080 || screenHeight < 720){
-    document.getElementById('scale').setAttribute('transform', 'scale(1)')
-    document.getElementById('svg').setAttribute('width', 960 * 1)
-    document.getElementById('svg').setAttribute('height', 632.5 * 1)
-  } 
-  if(screenWidth < 980 || screenHeight < 645){
-    document.getElementById('scale').setAttribute('transform', 'scale(0.8)')
-    document.getElementById('svg').setAttribute('width', 960 * 0.8)
-    document.getElementById('svg').setAttribute('height', 632.5 * 0.8)
-  } 
-  if(screenWidth < 790 || screenHeight < 530){
-    document.getElementById('scale').setAttribute('transform', 'scale(0.6)')
-    document.getElementById('svg').setAttribute('width', 960 * 0.6)
-    document.getElementById('svg').setAttribute('height', 632.5 * 0.6)
-  } 
-  if(screenWidth < 600 || screenHeight < 400){
-    document.getElementById('scale').setAttribute('transform', 'scale(0.5)')
-    document.getElementById('svg').setAttribute('width', 960 * 0.5)
-    document.getElementById('svg').setAttribute('height', 632.5 * 0.5)
-  } 
-  if(screenWidth < 500 || screenHeight < 337){
-    document.getElementById('scale').setAttribute('transform', 'scale(0.4)')
-    document.getElementById('svg').setAttribute('width', 960 * 0.4)
-    document.getElementById('svg').setAttribute('height', 632.5 * 0.4)
-  } 
-  if(screenWidth < 400 || screenHeight < 275){
-    document.getElementById('scale').setAttribute('transform', 'scale(0.3)')
-    document.getElementById('svg').setAttribute('width', 960 * 0.3)
-    document.getElementById('svg').setAttribute('height', 632.5 * 0.3)
-  } 
-  if(screenWidth < 300 || screenHeight < 200){
-    document.getElementById('scale').setAttribute('transform', 'scale(0.2)')
-    document.getElementById('svg').setAttribute('width', 960 * 0.2)
-    document.getElementById('svg').setAttribute('height', 632.5 * 0.2)
-  } 
-  if(screenWidth < 200 || screenHeight < 150){
-    document.getElementById('scale').setAttribute('transform', 'scale(0.1)')
-    document.getElementById('svg').setAttribute('width', 960 * 0.1)
-    document.getElementById('svg').setAttribute('height', 632.5 * 0.1)
-  } 
+  scale = min(screenWidth / 960, screenHeight / 632.5);
 
+  document.getElementById('scale').setAttribute('transform', 'scale(' + scale + ')')
+  document.getElementById('svg').setAttribute('width', 960 * scale)
+  document.getElementById('svg').setAttribute('height', 632.5 * scale)
+  
 }
