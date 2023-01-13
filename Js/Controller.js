@@ -197,7 +197,7 @@ function load() {
       handleEventData(data.d);
     }
   };
-  document.getElementById('link').setAttribute('href', '../Basketball-3D/index.html?eventId=' + eventId)
+  document.getElementById('link').setAttribute('href', '../basketball-3d/index.html?eventId=' + eventId)
 }
 function bounceBall() {
   if(!setTimer)return
